@@ -3,7 +3,6 @@
 This project analyzes *over 1,200 e-commerce transactions* to uncover insights about *sales trends, customer behavior, and delivery performance*.  
 It combines *Exploratory Data Analysis (EDA)* and *Machine Learning (ML)* techniques to predict *late deliveries* and improve operational efficiency.
 
-
 ## 📊 Project Overview
 
 The goal of this project is to:
@@ -12,7 +11,6 @@ The goal of this project is to:
 - Identify *key performance indicators (KPIs)* such as revenue, profit, and delivery delays
 - Visualize important business insights using *data visualization techniques*
 - Build a *Random Forest Model* to predict whether a delivery will be late
-
 
 ## ⚙ Key Steps
 
