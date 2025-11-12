@@ -6,10 +6,10 @@ It combines *Exploratory Data Analysis (EDA)* and *Machine Learning (ML)* techni
 
 ## 📊 Project Overview
 The goal of this project is to:
-- Understand e-commerce *sales patterns* and *customer purchase behavior*
-- Identify *key performance indicators (KPIs)* such as revenue, profit, and delivery delays
-- Visualize important business insights using *data visualization techniques*
-- Build a *Random Forest Model* to predict whether a delivery will be late
+- Understand e-commerce sales patterns and customer purchase behavior
+- Identify key performance indicators (KPIs) such as revenue, profit, and delivery delays
+- Visualize important business insights using data visualization techniques
+- Build a Random Forest Model* to predict whether a delivery will be late
 
 ## ⚙ Key Steps
 1. *Data Loading & Cleaning* — Handle missing values, incorrect data types, and outliers.  
