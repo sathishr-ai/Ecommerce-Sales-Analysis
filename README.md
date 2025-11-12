@@ -52,23 +52,18 @@ Upload the file **`ecommerce_sales_dataset.csv`** when prompted.
 ### ▶️ 3. Run All Cells
 Execute all cells to reproduce the **analysis, visualizations, and model results**.
 
----
-
-## 📈 Sample Insights
+📈 Sample Insights
 
 - 📦 **Top-performing product categories and regions**
 - 🚚 **Delivery time trends** by customer segment
 - 🤖 **Late delivery prediction accuracy** using Random Forest
 
----
 
-## 🧠 Future Enhancements
+🧠 Future Enhancements
 
 - 🔗 Integrate **live sales data** via API  
 - 📊 Add interactive **dashboard** using Streamlit or Power BI  
 - ⚡ Experiment with advanced **ML models** (e.g., XGBoost, LightGBM)
-
----
 
 Author:
 Sathish R  
