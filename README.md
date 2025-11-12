@@ -44,7 +44,9 @@ The goal of this project is to:
 - Late Delivery Rate By Country
 <img width="754" height="523" alt="image" src="https://github.com/user-attachments/assets/52c54bcb-21e8-474c-8fc1-44c93df97b9e" />
 
+## 🪪 License
 
+This project is licensed under the [MIT License](./LICENSE) © 2025 \[Sathish R\].
 
 ## 👤 Author
 - Sathish R
