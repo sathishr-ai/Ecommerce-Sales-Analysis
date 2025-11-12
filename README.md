@@ -34,5 +34,7 @@ The goal of this project is to:
 4. Run all cells
 
 ## 👤 Author
-Sathish R  
-Connect on [LinkedIn](www.linkedin.com/in/sathish-r-2393412a5)
+- Sathish R
+- 📧 Email: [sathxsh57@gmail.com]
+- 🌐 GitHub: https://github.com/sathishr-ai
+- 💼 LinkedIn: www.linkedin.com/in/sathish-r-2393412a5
