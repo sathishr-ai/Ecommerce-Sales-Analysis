@@ -27,8 +27,7 @@ The goal of this project is to:
 - *Scikit-Learn* — Machine learning and predictive modeling
 - *Google Colab / Jupyter Notebook* — Development environment
 
-
-Run Instructions:
+## 🚀 Run Instructions:
 1. Clone the repo or download files  
 2. Open `ecommerce_analysis.ipynb` in Colab  
 3. Upload `ecommerce_sales_dataset.csv`  
