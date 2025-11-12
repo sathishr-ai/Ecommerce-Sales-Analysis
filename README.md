@@ -21,11 +21,11 @@ The goal of this project is to:
 
 ## 🧰 Technologies Used
 
-- *Python 3.x*
-- *Pandas, **NumPy* — Data manipulation and analysis
-- *Matplotlib, **Seaborn* — Data visualization
-- *Scikit-Learn* — Machine learning and predictive modeling
-- *Google Colab / Jupyter Notebook* — Development environment
+- Python 3.x
+- Pandas,NumPy — Data manipulation and analysis
+- Matplotlib,Seaborn — Data visualization
+- Scikit-Learn — Machine learning and predictive modeling
+- Google Colab / Jupyter Notebook — Development environment
 
 ## 🚀 Run Instructions
 1. Clone the repo or download files  
