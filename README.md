@@ -38,15 +38,10 @@ The goal of this project is to:
 ---
 
 ## 🚀 Run Instructions
-
-### 1. Clone this repository
+1. Clone this repository
 ```bash
 git clone https://github.com/<your-username>/E-Commerce-Sales-Analysis.git
 cd E-Commerce-Sales-Analysis
-
----
-
-## 🚀 Run Instructions
 
 ### 🧾 1. Open the Notebook
 Launch **`ecommerce_analysis.ipynb`** in **Google Colab** or **Jupyter Notebook**.
