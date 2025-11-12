@@ -33,6 +33,15 @@ The goal of this project is to:
 3. Upload `ecommerce_sales_dataset.csv`  
 4. Run all cells
 
+## 📊 Outputs
+<img width="1312" height="591" alt="image" src="https://github.com/user-attachments/assets/9ecd116f-ce28-4870-892f-9b2a43f528ba" />
+Net Sales By Product category
+<img width="784" height="484" alt="image" src="https://github.com/user-attachments/assets/648451b8-1d7c-42c4-afb8-77ef42f49c8b" />
+Late Delivery Rate By Country
+<img width="754" height="523" alt="image" src="https://github.com/user-attachments/assets/52c54bcb-21e8-474c-8fc1-44c93df97b9e" />
+
+
+
 ## 👤 Author
 - Sathish R
 - 📧 Email: [sathxsh57@gmail.com]
