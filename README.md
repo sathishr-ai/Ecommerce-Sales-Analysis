@@ -4,6 +4,12 @@
 
 A modern, high-performance web dashboard designed to ingest e-commerce CSV datasets (tested with 11,000+ rows) and provide instant visual analytics, KPIs, and machine-learning-driven logistics predictions.
 
+<a href="https://sathishr-ai.github.io/Ecommerce-Sales-Analysis/Ecommerce%20sales.html">
+  <img src="https://img.shields.io/badge/LIVE_DEMO-CLICK_HERE-success?style=for-the-badge&logo=googlechrome&logoColor=white" alt="Live Demo Button" />
+</a>
+
+<br/>
+
 ![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white) 
 ![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white) 
 ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
