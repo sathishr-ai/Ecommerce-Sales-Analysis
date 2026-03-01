@@ -25,7 +25,7 @@ A modern, high-performance web dashboard designed to ingest e-commerce CSV datas
 
 ## 📊 Model Performance Comparison
 
-| Metric        | XGBoost (Current) | Random Forest (Previous) | Logistic Regression | Support Vector Machines (SVM) | Neural Networks (MLP) |
+| Metric       |  XGBoost         | Random Forest            | Logistic Regression| Support Vector Machines (SVM) | Neural Networks (MLP) |
 |--------------|------------------|--------------------------|--------------------|-------------------------------|-----------------------|
 | Accuracy     | 0.94             | 0.84                     | 0.72               | 0.81                          | 0.86                  |
 | Precision    | 0.92             | 0.81                     | 0.68               | 0.78                          | 0.83                  |
@@ -73,11 +73,16 @@ Because the project strictly uses client-side web technologies and native browse
 
 ## 📁 File Structure
 ```text
-├── outputs/                     # Directory for saving UI screenshots and sample images
-├── Ecommerce sales.html         # Main dashboard layout and DOM structure
-├── styles.css                   # Custom UI styles, theme variables, and grid logic
-├── script.js                    # Core logic: CSV parsing, Chart.js config, and ML algorithms
-└── ecommerce_sales_dataset.csv  # Example dataset for testing (100k+ file handling supported)
+├── outputs/                             # Directory for saving UI screenshots and sample images
+├── .gitignore                           # Ignored system and cache files
+├── Ecommerce sales.html                 # Main dashboard layout and DOM structure
+├── ecommerce_sales_dataset_cleaned.csv  # Working cleaned CSV dataset
+├── ecommerce_sales_dataset.csv          # Original CSV dataset backup
+├── LICENSE                              # MIT License
+├── README.md                            # Project documentation
+├── requirements.txt                     # Data science stack dependencies
+├── script.js                            # Core logic: CSV parsing, Chart.js config, XGBoost simulation
+└── styles.css                           # Custom UI styles, theme variables, and grid logic
 ```
 ## 💼 Business Impact
 
