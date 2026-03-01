@@ -58,6 +58,10 @@ Because the project strictly uses client-side web technologies and native browse
 ## 🤖 Analytics Algorithm Transition
 The internal prediction engine was transitioned from a standard *Random Forest* approach to *XGBoost*. Logistic Regressions and Random Forests were insufficient at properly assigning heavy risk weighting to compounding variables (e.g., A heavy discount on a heavy product using standard shipping). By simulating XGBoost logic, standard predictions were pushed above a **94% accuracy threshold**, granting extreme sub-variable confidence. 
 
+## 🪪 License
+
+This project is licensed under the [MIT License](./LICENSE) © 2026 \[Sathish R\].
+
 ## 👤 Author
 - Sathish R
 - 📧 Email: [sathxsh57@gmail.com]
