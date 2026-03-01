@@ -29,7 +29,7 @@ Because the project strictly uses client-side web technologies and native browse
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/YOUR-USERNAME/ecomscope-analytics.git
+   git clone https://github.com/sathishr-ai/Ecommerce-Sales-Analysis
    ```
 2. **Open the project**
    Navigate into the directory. You can double-click `Ecommerce sales.html` to open it locally directly in your browser.
