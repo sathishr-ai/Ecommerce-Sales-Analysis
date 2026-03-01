@@ -11,6 +11,13 @@ A modern, high-performance web dashboard designed to ingest e-commerce CSV datas
 
 </div>
 
+## 📸 Dashboard Preview
+*(Add your screenshots here! Take a snip of the dashboard and save it in the `outputs` folder as `dashboard.png` and `ml_prediction.png`)*
+<p align="center">
+  <img src="outputs/dashboard.png" alt="Dashboard View" width="45%" border="1" />
+  <img src="outputs/ml_prediction.png" alt="ML Prediction View" width="45%" border="1" />
+</p>
+
 ## ✨ Features
 
 - **🚀 Highly-Optimized CSV Parsing:** Bypasses browser-freezing loops using native JavaScript `FileReader` APIs instead of heavy streaming libraries, capable of parsing and rendering over 11,000 rows in sub-seconds.
@@ -49,6 +56,7 @@ Because the project strictly uses client-side web technologies and native browse
 
 ## 📁 File Structure
 ```text
+├── outputs/                     # Directory for saving UI screenshots and sample images
 ├── Ecommerce sales.html         # Main dashboard layout and DOM structure
 ├── styles.css                   # Custom UI styles, theme variables, and grid logic
 ├── script.js                    # Core logic: CSV parsing, Chart.js config, and ML algorithms
