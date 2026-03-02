@@ -14,19 +14,23 @@ A modern, high-performance web dashboard designed to ingest e-commerce CSV datas
 ![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white) 
 ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
 ![Chart.js](https://img.shields.io/badge/chart.js-F5788D.svg?style=for-the-badge&logo=chart.js&logoColor=white)
+![Leaflet.js](https://img.shields.io/badge/Leaflet-199900?style=for-the-badge&logo=Leaflet&logoColor=white)
 
 </div>
 
 ## ✨ Features
 
 - **🚀 Highly-Optimized CSV Parsing:** Bypasses browser-freezing loops using native JavaScript `FileReader` APIs instead of heavy streaming libraries, capable of parsing and rendering over 11,000 rows in sub-seconds.
-- **📈 Interactive Data Visualization:** Utilizes Chart.js to automatically render Sales by Category (Bar charts) and Sales by Country (Doughnut charts) based on the uploaded data.
+- **📈 Advanced Data Visualization:** Utilizes **Chart.js** to dynamically render advanced graphics (like Multi-Axis Radar Charts for Payment Method Risk Analysis) and multi-layered Bar Charts. 
+- **🌍 Interactive Global Sales Map:** Employs **Leaflet.js** and dark cartographic tiles to plot an interactive, glowing heatmap of Top Country Sales geographically across the globe.
+- **🔢 Kinetic Number Animations:** Integrated seamless CSS/JS combination 'Count-Up' animations for Top-Level Metrics and KPIs adding a striking degree of UI polish and kinetic feedback. 
 - **🧠 XGBoost-Inspired Risk Scoring Engine:** Implements a gradient-boosting–style risk scoring logic in JavaScript to estimate the probability of "Late Delivery" vs. "On-Time" shipment based on product category, pricing, discount levels, and payment method combinations.
-- **💎 Enterprise UI/UX:** A sleek, fully responsive layout built with custom CSS, featuring glassmorphism card layouts, subtle shadows, and cohesive color palettes.
+- **💎 Enterprise UI/UX (Midnight Premium Design):** A sleek, fully responsive layout built with custom CSS, featuring animated ambient particle backgrounds, high-fidelity frosted glassmorphism overlays, deeply tuned boundary constraints, and glowing neon action states.
 
 ## 🛠️ Built With
 - Pure HTML5, CSS3, Vanilla JS
 - [Chart.js](https://www.chartjs.org/) (for interactive graphing)
+- [Leaflet.js](https://leafletjs.com/) (for interactive geographical maps)
 - [FontAwesome](https://fontawesome.com/) (for iconography)
 
 ## 📊 Model Performance Comparison
@@ -87,8 +91,8 @@ Because the project strictly uses client-side web technologies and native browse
 ├── LICENSE                              # MIT License
 ├── README.md                            # Project documentation
 ├── requirements.txt                     # Data science stack dependencies
-├── script.js                            # Core logic: CSV parsing, Chart.js config, XGBoost simulation
-└── styles.css                           # Custom UI styles, theme variables, and grid logic
+├── script.js                            # Core logic: CSV parsing, Chart initialization, Leaflet maps, XGBoost sim
+└── styles.css                           # Enterprise CSS rules (Glassmorphism, animations, map overrides)
 ```
 ## 💼 Business Impact
 
