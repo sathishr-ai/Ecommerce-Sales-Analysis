@@ -74,11 +74,11 @@ Because the project strictly uses client-side web technologies and native browse
 4. Interact with the **XGBoost Late Delivery Predictor** widget to test specific variables (like high constraints on Heavy discounts paired with Cash-on-Delivery) to see the confidence ratings for shipping delays.
 
 ## 📸 Dashboard Preview
-<p align="center">
-  <img width="1919" height="1020" alt="Screenshot 2026-03-01 143132" src="https://github.com/user-attachments/assets/adad131b-27b1-4af0-872d-bc904b8b79c4" />
-  <img width="1901" height="1017" alt="Screenshot 2026-03-01 144035" src="https://github.com/user-attachments/assets/a4a25a34-f559-4519-b412-913c11652644" />
-  <img width="1901" height="1019" alt="Screenshot 2026-03-01 143849" src="https://github.com/user-attachments/assets/ef3a4d3f-ef27-48a3-b0a5-fd24a04a2c99" />
-  <img width="1914" height="1018" alt="Screenshot 2026-03-01 144153" src="https://github.com/user-attachments/assets/886cc503-ab97-4168-99fd-dcf228dd7ef6" />
+<p align="center"> 
+<img width="1918" height="1026" alt="Dashboard 1" src="https://github.com/user-attachments/assets/2ba563c3-8bea-4ae8-a9ac-9d5f0da41a6e" />
+<img width="1918" height="1026" alt="Dashboard 2" src="https://github.com/user-attachments/assets/65e2875a-2ad9-457c-9a20-abb0d790ccfa" />
+<img width="1918" height="964" alt="Dashboard 3" src="https://github.com/user-attachments/assets/8e976e55-8785-4cc2-a410-13c47b7300af" />
+<img width="1919" height="1023" alt="Prediction" src="https://github.com/user-attachments/assets/aad3030c-443f-4dc4-b1bf-b67bb1ce0b68" />  
 </p>
 
 ## 📁 File Structure
