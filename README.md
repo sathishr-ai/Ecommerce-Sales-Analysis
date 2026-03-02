@@ -84,6 +84,10 @@ Because the project strictly uses client-side web technologies and native browse
 ## 📁 File Structure
 ```text
 ├── outputs/                             # Directory for saving UI screenshots and sample images
+│   ├── Dashboard 1.png                  # Screenshot of the main dashboard top section
+│   ├── Dashboard 2.png                  # Screenshot of the geographic map and radar chart
+│   ├── Dashboard 3.png                  # Screenshot of the enhanced CSS data table
+│   └── Prediction.png                   # Screenshot of the XGBoost prediction outputs
 ├── .gitignore                           # Ignored system and cache files
 ├── Ecommerce sales.html                 # Main dashboard layout and DOM structure
 ├── ecommerce_sales_dataset_cleaned.csv  # Working cleaned CSV dataset
