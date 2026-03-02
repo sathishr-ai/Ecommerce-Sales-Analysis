@@ -9,7 +9,36 @@
     const progressBar = document.getElementById('progressBar');
     const progressFill = document.getElementById('progressFill');
 
-    let netSalesChartInst, lateRateChartInst;
+    let radarChartInst;
+    let leafletMapInst;
+
+    // Simple Geo-coordinates mapping for demo purposes
+    const countryCoords = {
+        'USA': [39.8283, -98.5795], 'UK': [55.3781, -3.4360], 'India': [20.5937, 78.9629],
+        'Germany': [51.1657, 10.4515], 'Canada': [56.1304, -106.3468], 'Australia': [-25.2744, 133.7751],
+        'France': [46.2276, 2.2137], 'Brazil': [-14.2350, -51.9253], 'Japan': [36.2048, 138.2529],
+        'China': [35.8617, 104.1954], 'Unknown': [0, 0]
+    };
+
+    // Number Animation Helper
+    function animateValue(element, start, end, duration, formatFn = (v) => v) {
+        if (!element) return;
+        let startTimestamp = null;
+        const step = (timestamp) => {
+            if (!startTimestamp) startTimestamp = timestamp;
+            const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+            // Ease out expo
+            const easeProgress = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+            const currentVal = start + easeProgress * (end - start);
+            element.innerHTML = formatFn(currentVal);
+            if (progress < 1) {
+                window.requestAnimationFrame(step);
+            } else {
+                element.innerHTML = formatFn(end);
+            }
+        };
+        window.requestAnimationFrame(step);
+    }
 
     // Helper functions
     function setError(message) {
@@ -127,9 +156,38 @@
         const countrySalesNames = countrySalesEntries.map(e => e[0]);
         const countrySalesValues = countrySalesEntries.map(e => (e[1] / 1000).toFixed(1));
 
-        const countryLateEntries = Object.entries(countryStats).map(e => [e[0], (e[1].late / e[1].orders) * 100]).sort((a, b) => b[1] - a[1]).slice(0, 7);
-        const countryLateNames = countryLateEntries.map(e => e[0]);
-        const countryLateValues = countryLateEntries.map(e => e[1].toFixed(1));
+        // Radar metrics group by payment
+        const paymentMetrics = {
+            names: [], sales: [], discount: [], lateRate: []
+        };
+
+        // Track total variables by payment method to normalize for radar
+        const paymentAgg = {};
+        for (let i = 0; i < rows.length; i++) {
+            const r = rows[i];
+            const pay = r['Payment_Method']?.trim() || 'Unknown';
+            const sales = parseFloat(r['Sales']) || 0;
+            const disc = parseFloat(r['Discount(%)']) || 0;
+            const delivery = parseFloat(r['Delivery_Time(Days)']) || 0;
+            if (!paymentAgg[pay]) paymentAgg[pay] = { count: 0, sales: 0, disc: 0, late: 0 };
+
+            paymentAgg[pay].count++;
+            paymentAgg[pay].sales += sales;
+            paymentAgg[pay].disc += disc;
+            if (delivery > 7) paymentAgg[pay].late++;
+        }
+
+        // Max sales for normalization
+        let maxPaySales = 1;
+        for (let p in paymentAgg) if (paymentAgg[p].sales > maxPaySales) maxPaySales = paymentAgg[p].sales;
+
+        for (let p in paymentAgg) {
+            paymentMetrics.names.push(p);
+            // Normalize to 0-100 scale for Radar comparability
+            paymentMetrics.sales.push((paymentAgg[p].sales / maxPaySales) * 100);
+            paymentMetrics.discount.push((paymentAgg[p].disc / paymentAgg[p].count) * 2); // Assuming max 50% discount -> *2 gets to 100
+            paymentMetrics.lateRate.push((paymentAgg[p].late / paymentAgg[p].count) * 100);
+        }
 
         return {
             totalOrders,
@@ -145,44 +203,81 @@
             catValues,
             countrySalesNames,
             countrySalesValues,
-            countryLateNames,
-            countryLateValues,
+            paymentMetrics,
             rowsSample: rows.slice(0, 8)
         };
     }
 
     function renderDashboard(data, rows) {
         document.getElementById('kpiGrid').innerHTML = `
-            <div class="kpi-card"><div class="kpi-icon"><i class="fas fa-shopping-bag"></i></div><div class="kpi-label">Orders</div><div class="kpi-value">${data.totalOrders}</div><div class="kpi-trend">${data.latePct}% late</div></div>
-            <div class="kpi-card"><div class="kpi-icon"><i class="fas fa-dollar-sign"></i></div><div class="kpi-label">Total sales</div><div class="kpi-value">${formatMoney(data.totalSales)}</div><div class="kpi-trend">${data.topCategory} leads</div></div>
-            <div class="kpi-card"><div class="kpi-icon"><i class="fas fa-percent"></i></div><div class="kpi-label">Avg discount</div><div class="kpi-value">${data.avgDiscount.toFixed(1)}%</div><div class="kpi-trend">max ${Math.max(...rows.map(r => parseFloat(r['Discount(%)'] || 0))).toFixed(1)}%</div></div>
-            <div class="kpi-card"><div class="kpi-icon"><i class="fas fa-truck"></i></div><div class="kpi-label">Delivery (avg)</div><div class="kpi-value">${data.avgDelivery.toFixed(1)}d</div><div class="kpi-trend">on‑time ${(100 - parseFloat(data.latePct)).toFixed(0)}%</div></div>
+            <div class="kpi-card"><div class="kpi-icon"><i class="fas fa-shopping-bag"></i></div><div class="kpi-label">Orders</div><div class="kpi-value" id="valOrders">0</div><div class="kpi-trend">${data.latePct}% late</div></div>
+            <div class="kpi-card"><div class="kpi-icon"><i class="fas fa-dollar-sign"></i></div><div class="kpi-label">Total sales</div><div class="kpi-value" id="valSales">$0</div><div class="kpi-trend">${data.topCategory} leads</div></div>
+            <div class="kpi-card"><div class="kpi-icon"><i class="fas fa-percent"></i></div><div class="kpi-label">Avg discount</div><div class="kpi-value" id="valDisc">0%</div><div class="kpi-trend">max ${Math.max(...rows.map(r => parseFloat(r['Discount(%)'] || 0))).toFixed(1)}%</div></div>
+            <div class="kpi-card"><div class="kpi-icon"><i class="fas fa-truck"></i></div><div class="kpi-label">Delivery (avg)</div><div class="kpi-value" id="valDeliv">0d</div><div class="kpi-trend">on‑time ${(100 - parseFloat(data.latePct)).toFixed(0)}%</div></div>
             <div class="kpi-card"><div class="kpi-icon"><i class="fas fa-crown"></i></div><div class="kpi-label">Top category</div><div class="kpi-value">${data.topCategory}</div><div class="kpi-trend">${((data.catValues[0] * 1000) / data.totalSales * 100).toFixed(1)}% sales</div></div>
         `;
+
+        // Animate KPIs over 1.5 seconds
+        animateValue(document.getElementById('valOrders'), 0, data.totalOrders, 1500, (v) => Math.floor(v).toLocaleString());
+        animateValue(document.getElementById('valSales'), 0, data.totalSales, 1500, (v) => formatMoney(v));
+        animateValue(document.getElementById('valDisc'), 0, data.avgDiscount, 1500, (v) => v.toFixed(1) + '%');
+        animateValue(document.getElementById('valDeliv'), 0, data.avgDelivery, 1500, (v) => v.toFixed(1) + 'd');
+
         document.getElementById('avgDeliverySpan').innerText = data.avgDelivery.toFixed(1);
 
-        const chartOptions = {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: { legend: { display: false } },
-            scales: {
-                x: { ticks: { color: '#94a3b8' }, grid: { display: false } },
-                y: { ticks: { color: '#94a3b8' }, grid: { color: 'rgba(255, 255, 255, 0.05)', borderDash: [5, 5] } }
-            }
-        };
+        // Map Initialization
+        if (!leafletMapInst) {
+            leafletMapInst = L.map('worldMap').setView([20, 0], 2);
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+                attribution: '&copy; CartoDB',
+                subdomains: 'abcd',
+                maxZoom: 20
+            }).addTo(leafletMapInst);
+        } else {
+            leafletMapInst.eachLayer((layer) => {
+                if (layer instanceof L.CircleMarker) leafletMapInst.removeLayer(layer);
+            });
+        }
 
-        if (netSalesChartInst) netSalesChartInst.destroy();
-        netSalesChartInst = new Chart(document.getElementById('netSalesCountryChart'), {
-            type: 'bar',
-            data: { labels: data.countrySalesNames, datasets: [{ label: 'Net Sales (thousand $)', data: data.countrySalesValues, backgroundColor: '#3b82f6', borderRadius: 6 }] },
-            options: chartOptions
+        // Plot countries on map
+        data.countrySalesNames.forEach((country, index) => {
+            let coords = countryCoords[country] || [0, 0];
+            if (coords[0] !== 0) {
+                let salesVal = parseFloat(data.countrySalesValues[index]);
+                L.circleMarker(coords, {
+                    radius: Math.max(8, (salesVal / parseFloat(data.countrySalesValues[0])) * 25),
+                    fillColor: "#3b82f6",
+                    color: "#60a5fa",
+                    weight: 1,
+                    opacity: 1,
+                    fillOpacity: 0.6
+                }).addTo(leafletMapInst).bindPopup(`<b>${country}</b><br>Net Sales: $${salesVal}K`);
+            }
         });
 
-        if (lateRateChartInst) lateRateChartInst.destroy();
-        lateRateChartInst = new Chart(document.getElementById('lateRateCountryChart'), {
-            type: 'bar',
-            data: { labels: data.countryLateNames, datasets: [{ label: 'Late Delivery Rate (%)', data: data.countryLateValues, backgroundColor: '#f43f5e', borderRadius: 6 }] },
-            options: chartOptions
+        // Radar Chart Initialization
+        if (radarChartInst) radarChartInst.destroy();
+        radarChartInst = new Chart(document.getElementById('radarChart'), {
+            type: 'radar',
+            data: {
+                labels: data.paymentMetrics.names,
+                datasets: [
+                    { label: 'Relative Voume (Sales)', data: data.paymentMetrics.sales, backgroundColor: 'rgba(59, 130, 246, 0.2)', borderColor: '#3b82f6', pointBackgroundColor: '#60a5fa' },
+                    { label: 'Late Delivery Risk', data: data.paymentMetrics.lateRate, backgroundColor: 'rgba(244, 63, 94, 0.2)', borderColor: '#f43f5e', pointBackgroundColor: '#fb7185' }
+                ]
+            },
+            options: {
+                responsive: true, maintainAspectRatio: false,
+                plugins: { legend: { position: 'bottom', labels: { color: '#94a3b8' } } },
+                scales: {
+                    r: {
+                        angleLines: { color: 'rgba(255, 255, 255, 0.1)' },
+                        grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                        pointLabels: { color: '#e2e8f0', font: { size: 11 } },
+                        ticks: { display: false }
+                    }
+                }
+            }
         });
 
         document.getElementById('insightList').innerHTML = `
@@ -195,10 +290,33 @@
 
         const headers = Object.keys(rows[0] || {});
         document.getElementById('tableHead').innerHTML = '<tr>' + headers.slice(0, 8).map(h => `<th>${h}</th>`).join('') + '</tr>';
+
+        // Find max sales in sample for data-bars
+        let maxSampleSales = 1;
+        data.rowsSample.forEach(r => { if (parseFloat(r['Sales']) > maxSampleSales) maxSampleSales = parseFloat(r['Sales']); });
+
         let tbodyHtml = '';
         for (let i = 0; i < data.rowsSample.length; i++) {
             const row = data.rowsSample[i];
-            tbodyHtml += '<tr>' + headers.slice(0, 8).map(h => `<td>${row[h] !== undefined ? row[h] : ''}</td>`).join('') + '</tr>';
+            let rowHtml = '<tr>';
+            headers.slice(0, 8).forEach(h => {
+                let cellValue = row[h] !== undefined ? row[h] : '';
+
+                // Data-bar injection
+                if (h === 'Sales') {
+                    let pct = (parseFloat(cellValue) / maxSampleSales) * 100;
+                    rowHtml += `<td><div class="data-bar-bg"><div class="data-bar-fill" style="width: ${pct}%"></div></div>${formatMoney(parseFloat(cellValue))}</td>`;
+                } else if (h === 'Delivery_Time(Days)') {
+                    // Color coding
+                    let days = parseFloat(cellValue);
+                    let cls = days >= 7 ? 'text-red-500' : (days <= 5 ? 'text-green-500' : '');
+                    rowHtml += `<td class="${cls}">${cellValue} d</td>`;
+                } else {
+                    rowHtml += `<td>${cellValue}</td>`;
+                }
+            });
+            rowHtml += '</tr>';
+            tbodyHtml += rowHtml;
         }
         document.getElementById('tableBody').innerHTML = tbodyHtml;
 

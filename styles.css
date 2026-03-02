@@ -426,10 +426,58 @@ canvas {
     padding: 1rem;
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     color: #e2e8f0;
+    position: relative;
+    z-index: 1;
 }
 
 .table-preview tr:hover td {
     background: rgba(255, 255, 255, 0.02);
+}
+
+.data-bar-bg {
+    position: absolute;
+    top: 50%;
+    left: 1rem;
+    transform: translateY(-50%);
+    height: 70%;
+    background: rgba(59, 130, 246, 0.1);
+    border-radius: 4px;
+    z-index: -1;
+    pointer-events: none;
+}
+
+.data-bar-fill {
+    height: 100%;
+    background: rgba(59, 130, 246, 0.5);
+    border-radius: 4px;
+    transition: width 0.5s ease-out;
+}
+
+.text-green-500 {
+    color: #22c55e !important;
+    font-weight: 600;
+}
+
+.text-red-500 {
+    color: #ef4444 !important;
+    font-weight: 600;
+}
+
+/* Leaflet Override */
+.leaflet-container {
+    background: #0f172a !important;
+    font-family: inherit;
+}
+
+.leaflet-popup-content-wrapper {
+    background: rgba(15, 23, 42, 0.9) !important;
+    color: #f1f5f9 !important;
+    border: 1px solid rgba(59, 130, 246, 0.3) !important;
+    border-radius: 8px !important;
+}
+
+.leaflet-popup-tip {
+    background: rgba(15, 23, 42, 0.9) !important;
 }
 
 .ml-section {

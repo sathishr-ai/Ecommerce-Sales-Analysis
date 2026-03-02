@@ -12,9 +12,14 @@
         href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <!-- PapaParse (without fastMode for reliability) + Chart.js -->
+    <!-- PapaParse + Chart.js + Leaflet.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" href="data:,">
 </head>
@@ -57,13 +62,15 @@
         <div class="data-dashboard" id="dataDashboard">
             <div class="kpi-grid" id="kpiGrid"></div>
             <div class="charts-row">
-                <div class="chart-container">
-                    <div class="chart-title"><span>Net Sales by Country</span> <i class="fas fa-globe-americas"
-                            style="color: #3b82f6;"></i></div><canvas id="netSalesCountryChart"></canvas>
+                <div class="chart-container" style="flex: 2; min-width: 500px;">
+                    <div class="chart-title"><span>Global Sales Map</span> <i class="fas fa-globe-americas"
+                            style="color: #3b82f6;"></i></div>
+                    <div id="worldMap" style="height: 350px; border-radius: 8px; z-index: 1;"></div>
                 </div>
-                <div class="chart-container">
-                    <div class="chart-title"><span>Late Delivery Rate by Country</span> <i class="fas fa-shipping-fast"
-                            style="color: #C44545;"></i></div><canvas id="lateRateCountryChart"></canvas>
+                <div class="chart-container" style="flex: 1; min-width: 380px;">
+                    <div class="chart-title"><span>Payment Method Profile</span> <i class="fas fa-spider"
+                            style="color: #8b5cf6;"></i></div>
+                    <canvas id="radarChart"></canvas>
                 </div>
             </div>
             <div class="stats-panel">
