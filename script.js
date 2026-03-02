@@ -161,18 +161,28 @@
         `;
         document.getElementById('avgDeliverySpan').innerText = data.avgDelivery.toFixed(1);
 
+        const chartOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            scales: {
+                x: { ticks: { color: '#94a3b8' }, grid: { display: false } },
+                y: { ticks: { color: '#94a3b8' }, grid: { color: 'rgba(255, 255, 255, 0.05)', borderDash: [5, 5] } }
+            }
+        };
+
         if (netSalesChartInst) netSalesChartInst.destroy();
         netSalesChartInst = new Chart(document.getElementById('netSalesCountryChart'), {
             type: 'bar',
-            data: { labels: data.countrySalesNames, datasets: [{ label: 'Net Sales (thousand $)', data: data.countrySalesValues, backgroundColor: '#3b82f6', borderRadius: 8 }] },
-            options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+            data: { labels: data.countrySalesNames, datasets: [{ label: 'Net Sales (thousand $)', data: data.countrySalesValues, backgroundColor: '#3b82f6', borderRadius: 6 }] },
+            options: chartOptions
         });
 
         if (lateRateChartInst) lateRateChartInst.destroy();
         lateRateChartInst = new Chart(document.getElementById('lateRateCountryChart'), {
             type: 'bar',
-            data: { labels: data.countryLateNames, datasets: [{ label: 'Late Delivery Rate (%)', data: data.countryLateValues, backgroundColor: '#C44545', borderRadius: 8 }] },
-            options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+            data: { labels: data.countryLateNames, datasets: [{ label: 'Late Delivery Rate (%)', data: data.countryLateValues, backgroundColor: '#f43f5e', borderRadius: 6 }] },
+            options: chartOptions
         });
 
         document.getElementById('insightList').innerHTML = `
